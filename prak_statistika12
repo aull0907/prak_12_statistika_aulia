@@ -1,0 +1,15 @@
+df_aul=read.delim("clipboard")
+head(df_aul)
+model_reg=lm(df_aul$Y~df_aul$X)
+summary(model_reg)
+
+#regrensi berganda
+
+df_aul=read.delim("clipboard")
+df_aul$brick_dummy <- ifelse(df_aul$Brick =="Yes", 1,0)
+df_aul$N_dummy1 <- ifelse(df_aul$Neighborhood =="West", 1,0)
+df_aul$N_dummy2 <- ifelse(df_aul$Neighborhood =="North", 1,0)
+model=lm(df_aul$Price~df_aul$SqFt+df_aul$Bedrooms+df_aul$Bathrooms+df_aul$brick_dummy+df_aul$N_dummy1+df_aul$N_dummy2)
+summary(model)
+by(df_aul$Price, df_aul$Neighborhood, mean)
+by(df_aul$Price, df_aul$Brick, mean)
